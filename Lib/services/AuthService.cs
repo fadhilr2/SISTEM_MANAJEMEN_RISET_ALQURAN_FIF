@@ -16,7 +16,7 @@ namespace Lib.services
 
             if (!user.Password.Equals(password)) return false;
 
-            Session.Account = user;
+            Session.Instance.Account = user;
             return true;
         }
 

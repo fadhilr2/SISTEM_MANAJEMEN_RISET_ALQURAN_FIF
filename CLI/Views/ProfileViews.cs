@@ -12,10 +12,10 @@ namespace CLI.Views
 
             Console.WriteLine("1. View All Research");
             Console.WriteLine("2. View My Profile");
-            if (Session.Account != null && Session.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase)) Console.WriteLine("3. Add New Research");
+            if (Session.Instance.Account != null && Session.Instance.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase)) Console.WriteLine("3. Add New Research");
             Console.WriteLine("9. Log out");
 
-            Session.Menu = InputReader.ReadInput<int>();
+            Session.Instance.Menu = InputReader.ReadInput<int>();
 
             Console.WriteLine();
         }
@@ -24,11 +24,11 @@ namespace CLI.Views
         {
             BaseViews.PrintSubheader("MY PROFILE");
 
-            if (Session.Account != null)
+            if (Session.Instance.Account != null)
             {
-                Console.WriteLine($"Name: {Session.Account.Name}");
-                Console.WriteLine($"Email: {Session.Account.Email}");
-                Console.WriteLine($"Role: {Session.Account.Role}");
+                Console.WriteLine($"Name: {Session.Instance.Account.Name}");
+                Console.WriteLine($"Email: {Session.Instance.Account.Email}");
+                Console.WriteLine($"Role: {Session.Instance.Account.Role}");
             }
 
             Console.WriteLine();
