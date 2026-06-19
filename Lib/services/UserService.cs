@@ -1,4 +1,4 @@
-﻿using Lib.common;
+using Lib.common;
 using Lib.models;
 using System;
 using System.Collections.Generic;
@@ -39,8 +39,20 @@ namespace Lib.services
                         break;
                     }
 
+                    string oldName = user.Name;
                     user.Name = name;
                     Session.Account.Name = name;
+
+                    if (oldName != null && !oldName.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        foreach (var paper in DataContext.Papers.GetAll())
+                        {
+                            if (paper.Author.Equals(oldName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                paper.Author = name;
+                            }
+                        }
+                    }
 
                     Console.WriteLine("~Name edited");
                     break;
