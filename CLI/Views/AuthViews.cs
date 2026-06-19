@@ -14,7 +14,7 @@ namespace CLI.Views
             Console.WriteLine(Messages.Get("menu.register"));
             Console.WriteLine(Messages.Get("menu.exit"));
 
-            Session.Menu = InputReader.ReadInput<int>();
+            Session.Instance.Menu = InputReader.ReadInput<int>();
 
             Console.WriteLine();
         }

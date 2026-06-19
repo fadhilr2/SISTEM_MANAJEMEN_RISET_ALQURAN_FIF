@@ -32,7 +32,7 @@ namespace Lib.services
                     Console.WriteLine("Enter new name:");
                     string name = InputReader.ReadInput<string>();
 
-                    User? user = SearchUser("email", Session.Account.Email);
+                    User? user = SearchUser("email", Session.Instance.Account.Email);
                     if (user == null)
                     {
                         Console.WriteLine("Current user not found.");
@@ -41,7 +41,7 @@ namespace Lib.services
 
                     string oldName = user.Name;
                     user.Name = name;
-                    Session.Account.Name = name;
+                    Session.Instance.Account.Name = name;
 
                     if (oldName != null && !oldName.Equals(name, StringComparison.OrdinalIgnoreCase))
                     {
@@ -61,7 +61,7 @@ namespace Lib.services
                     Console.WriteLine("Enter new email:");
                     string email = InputReader.ReadInput<string>();
 
-                    User? user2 = SearchUser("email", Session.Account.Email);
+                    User? user2 = SearchUser("email", Session.Instance.Account.Email);
                     if (user2 == null)
                     {
                         Console.WriteLine("Current user not found.");
@@ -69,7 +69,7 @@ namespace Lib.services
                     }
 
                     user2.Email = email;
-                    Session.Account.Email = email;
+                    Session.Instance.Account.Email = email;
 
                     Console.WriteLine("~Email edited");
                     break;

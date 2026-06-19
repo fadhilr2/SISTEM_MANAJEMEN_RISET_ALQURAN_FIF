@@ -15,7 +15,7 @@ namespace Lib.services
 
         public static bool UploadPaper(string title, string paperAbstract)
         {
-            if (Session.Account == null)
+            if (Session.Instance.Account == null)
             {
                 return false;
             }
@@ -24,7 +24,7 @@ namespace Lib.services
             {
                 Title = title,
                 Paper_Abstract = paperAbstract,
-                Author = Session.Account.Name,
+                Author = Session.Instance.Account.Name,
                 Date = $"{DateTime.Now.Month} {DateTime.Now.Date} {DateTime.Now.Year}"
             });
 
@@ -33,7 +33,7 @@ namespace Lib.services
 
         public static bool CanEdit(Paper paper)
         {
-            return Session.Account != null && (Session.Account.Name.Equals(paper.Author, StringComparison.OrdinalIgnoreCase) || Session.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase));
+            return Session.Instance.Account != null && (Session.Instance.Account.Name.Equals(paper.Author, StringComparison.OrdinalIgnoreCase) || Session.Instance.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase));
         }
 
         public static bool EditTitle(Paper paper, string newTitle)

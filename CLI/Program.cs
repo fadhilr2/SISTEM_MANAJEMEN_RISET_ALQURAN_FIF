@@ -19,15 +19,15 @@ namespace CLI
                 {
                     case State.Welcome:
                         AuthViews.PrintWelcomeView();
-                        if (Session.Menu == 1)
+                        if (Session.Instance.Menu == 1)
                         {
                             stateMachine.Set(State.Login);
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
                             stateMachine.Set(State.Register);
                         }
-                        else if (Session.Menu == 0)
+                        else if (Session.Instance.Menu == 0)
                         {
                             stateMachine.Set(State.Exit);
                         }
@@ -35,9 +35,9 @@ namespace CLI
 
                     case State.Login:
                         AuthViews.PrintLoginView();
-                        if (Session.Account != null)
+                        if (Session.Instance.Account != null)
                         {
-                            if (Session.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                            if (Session.Instance.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase))
                             {
                                 stateMachine.Set(State.Admin);
                             }
@@ -59,38 +59,38 @@ namespace CLI
 
                     case State.Home:
                         ProfileViews.PrintHomeView();
-                        if (Session.Menu == 1)
+                        if (Session.Instance.Menu == 1)
                         {
                             ResearchViews.PrintAllResearch();
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
                             ProfileViews.PrintProfileView();
                         }
-                        else if (Session.Menu == 3 && Session.Account != null && Session.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase))
+                        else if (Session.Instance.Menu == 3 && Session.Instance.Account != null && Session.Instance.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase))
                         {
                             ProfileViews.PrintAddResearchView();
                         }
-                        else if (Session.Menu == 9)
+                        else if (Session.Instance.Menu == 9)
                         {
-                            Session.Account = null;
+                            Session.Instance.Logout();
                             stateMachine.Set(State.Welcome);
                         }
                         break;
 
                     case State.Admin:
                         AdminViews.PrintAdminView();
-                        if (Session.Menu == 1)
+                        if (Session.Instance.Menu == 1)
                         {
                             AdminViews.PrintAllUsers();
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
                             AdminViews.PrintRequestView();
                         }
-                        else if (Session.Menu == 9)
+                        else if (Session.Instance.Menu == 9)
                         {
-                            Session.Account = null;
+                            Session.Instance.Logout();
                             stateMachine.Set(State.Welcome);
                         }
                         break;

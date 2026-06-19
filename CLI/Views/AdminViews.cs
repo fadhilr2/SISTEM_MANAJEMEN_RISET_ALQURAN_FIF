@@ -15,7 +15,7 @@ namespace CLI.Views
             Console.WriteLine("2. View Registration Requests");
             Console.WriteLine("9. Log Out");
 
-            Session.Menu = InputReader.ReadInput<int>();
+            Session.Instance.Menu = InputReader.ReadInput<int>();
 
             Console.WriteLine();
         }
