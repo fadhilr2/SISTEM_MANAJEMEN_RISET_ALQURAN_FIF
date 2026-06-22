@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    /// <summary>
-    /// Manage research papers — browse, upload, edit, and delete.
-    /// </summary>
     [ApiController]
     [Route("api/papers")]
     [Produces("application/json")]

@@ -5,10 +5,8 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Controllers ──────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
 
-// ── Swagger / OpenAPI ─────────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -37,7 +35,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Bearer token security definition
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -59,14 +56,12 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Include XML comments (generated from <summary> tags)
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
         options.IncludeXmlComments(xmlPath);
 });
 
-// ── CORS (allow any during dev) ───────────────────────────────────────────────
 builder.Services.AddCors(o => o.AddPolicy("Dev", p => p
     .AllowAnyOrigin()
     .AllowAnyMethod()

@@ -2,4 +2,6 @@
   <Project Path="CLI/CLI.csproj" Id="a28012d3-21bf-4d53-a96e-0b97f8ccd650" />
   <Project Path="GUI/GUI.csproj" Id="d31d09fb-be1d-491b-af26-685b38820902" />
   <Project Path="Lib/Lib.csproj" Id="6e6d8ad2-a7b2-4746-9879-386a6fb213c5" />
+  <Project Path="UnitTest/UnitTest.csproj" Id="b1c2d3e4-f5a6-7890-abcd-ef1234567890" />
+  <Project Path="PerformanceTest/PerformanceTest.csproj" Id="c2d3e4f5-a6b7-8901-bcde-f12345678901" />
 </Solution>

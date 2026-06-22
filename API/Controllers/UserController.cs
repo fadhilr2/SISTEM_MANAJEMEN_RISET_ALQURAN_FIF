@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    /// <summary>
-    /// Manage user accounts, roles, and registration requests.
-    /// Most endpoints require admin privileges.
-    /// </summary>
     [ApiController]
     [Route("api/users")]
     [Produces("application/json")]
@@ -16,9 +12,6 @@ namespace API.Controllers
     {
         // ── GET /api/users ───────────────────────────────────────────────────
 
-        /// <summary>List all registered users (admin only).</summary>
-        /// <response code="200">Array of all user accounts.</response>
-        /// <response code="403">Caller is not an admin.</response>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<UserDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object?>), StatusCodes.Status403Forbidden)]
@@ -36,13 +29,6 @@ namespace API.Controllers
 
         // ── GET /api/users/search ────────────────────────────────────────────
 
-        /// <summary>Search for a user by email or name.</summary>
-        /// <param name="field">Field to search: <c>email</c> or <c>name</c>.</param>
-        /// <param name="value">Value to match (case-insensitive).</param>
-        /// <response code="200">The matching user.</response>
-        /// <response code="400">Invalid field specified.</response>
-        /// <response code="403">Admin access required.</response>
-        /// <response code="404">No user found.</response>
         [HttpGet("search")]
         [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object?>), StatusCodes.Status400BadRequest)]
