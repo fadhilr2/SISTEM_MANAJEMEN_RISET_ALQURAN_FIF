@@ -20,22 +20,22 @@ namespace GUI.Views
 
         private void InitializeComponent()
         {
-            var lblTitle = UIHelpers.CreateLabel("EDIT PROFILE", 20, true);
+            var lblTitle = UIHelpers.CreateLabel(Messages.Get("gui.title.edit_profile"), 20, true);
             lblTitle.Location = new Point(50, 40);
 
-            var lblName = UIHelpers.CreateLabel("New Name:", 12);
+            var lblName = UIHelpers.CreateLabel(Messages.Get("gui.label.new_name"), 12);
             lblName.Location = new Point(50, 100);
 
             txtName = UIHelpers.CreateTextBox();
-            txtName.Text = Session.Account.Name;
+            txtName.Text = Session.Instance.Account.Name;
             txtName.Location = new Point(50, 130);
 
-            var btnSave = UIHelpers.CreateButton("Save Name");
-            btnSave.Location = new Point(50, 180);
+            var btnSave = UIHelpers.CreateButton(Messages.Get("gui.btn.save"));
+            btnSave.Location = new Point(50, 190);
             btnSave.Click += BtnSave_Click;
 
-            var btnBack = UIHelpers.CreateSecondaryButton("Cancel");
-            btnBack.Location = new Point(50, 240);
+            var btnBack = UIHelpers.CreateSecondaryButton(Messages.Get("gui.btn.cancel"));
+            btnBack.Location = new Point(50, 250);
             btnBack.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new ProfileView());
 
             this.Controls.Add(lblTitle);
@@ -49,18 +49,31 @@ namespace GUI.Views
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Name cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Messages.Get("gui.msg.empty_name"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            User user = UserService.SearchUser("email", Session.Account.Email);
+            User user = UserService.SearchUser("email", Session.Instance.Account.Email);
             if (user != null)
             {
+                string oldName = user.Name;
                 user.Name = txtName.Text;
-                Session.Account.Name = txtName.Text;
+                Session.Instance.Account.Name = txtName.Text;
+
+                // Cascade the name update to all authored papers so they don't disappear
+                if (oldName != null && !oldName.Equals(txtName.Text, StringComparison.OrdinalIgnoreCase))
+                {
+                    foreach (var paper in Lib.services.DataContext.Papers.GetAll())
+                    {
+                        if (paper.Author.Equals(oldName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            paper.Author = txtName.Text;
+                        }
+                    }
+                }
             }
 
-            MessageBox.Show("Name updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Messages.Get("gui.msg.name_updated"), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             (this.ParentForm as Form1)?.NavigateTo(new ProfileView());
         }
     }

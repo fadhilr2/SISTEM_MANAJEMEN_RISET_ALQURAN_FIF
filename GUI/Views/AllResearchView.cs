@@ -21,22 +21,22 @@ namespace GUI.Views
 
         private void InitializeComponent()
         {
-            var lblTitle = UIHelpers.CreateLabel("ALL RESEARCH", 20, true);
+            var lblTitle = UIHelpers.CreateLabel(Messages.Get("gui.title.research_directory"), 20, true);
             lblTitle.Location = new Point(50, 50);
 
             lstResearch = new ListBox();
             lstResearch.Location = new Point(50, 100);
-            lstResearch.Size = new Size(700, 200);
+            lstResearch.Size = new Size(900, 320);
             lstResearch.Font = new Font("Segoe UI", 12F);
             lstResearch.BackColor = UIHelpers.SecondaryColor;
             lstResearch.ForeColor = UIHelpers.TextColor;
 
-            var btnOpen = UIHelpers.CreateButton("Open Selected Research");
-            btnOpen.Location = new Point(50, 320);
+            var btnOpen = UIHelpers.CreateButton(Messages.Get("gui.btn.open"));
+            btnOpen.Location = new Point(50, 450);
             btnOpen.Click += BtnOpen_Click;
 
-            var btnBack = UIHelpers.CreateSecondaryButton("Back");
-            btnBack.Location = new Point(300, 320);
+            var btnBack = UIHelpers.CreateSecondaryButton(Messages.Get("gui.btn.back"));
+            btnBack.Location = new Point(270, 450);
             btnBack.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new HomeView());
 
             this.Controls.Add(lblTitle);
@@ -67,7 +67,7 @@ namespace GUI.Views
             }
             else
             {
-                MessageBox.Show("Please select a research paper.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Messages.Get("gui.msg.select_paper"), "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

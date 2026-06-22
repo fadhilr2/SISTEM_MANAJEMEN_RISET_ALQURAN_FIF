@@ -2,4 +2,5 @@
   <Project Path="CLI/CLI.csproj" />
   <Project Path="GUI/GUI.csproj" />
   <Project Path="Lib/Lib.csproj" />
+  <Project Path="API/API.csproj" />
 </Solution>

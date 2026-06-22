@@ -22,28 +22,28 @@ namespace GUI.Views
 
         private void InitializeComponent()
         {
-            var lblTitle = UIHelpers.CreateLabel("REGISTRATION REQUESTS", 20, true);
+            var lblTitle = UIHelpers.CreateLabel(Messages.Get("gui.title.registration_requests"), 20, true);
             lblTitle.Location = new Point(50, 50);
 
             lstRequests = new ListBox();
             lstRequests.Location = new Point(50, 100);
-            lstRequests.Size = new Size(700, 200);
+            lstRequests.Size = new Size(900, 320);
             lstRequests.Font = new Font("Segoe UI", 12F);
             lstRequests.BackColor = UIHelpers.SecondaryColor;
             lstRequests.ForeColor = UIHelpers.TextColor;
 
-            var btnAccept = UIHelpers.CreateButton("Accept Selected");
+            var btnAccept = UIHelpers.CreateButton(Messages.Get("gui.btn.accept"));
             btnAccept.BackColor = Color.SeaGreen;
-            btnAccept.Location = new Point(50, 320);
+            btnAccept.Location = new Point(50, 450);
             btnAccept.Click += BtnAccept_Click;
 
-            var btnReject = UIHelpers.CreateButton("Reject Selected");
+            var btnReject = UIHelpers.CreateButton(Messages.Get("gui.btn.reject"));
             btnReject.BackColor = Color.IndianRed;
-            btnReject.Location = new Point(270, 320);
+            btnReject.Location = new Point(270, 450);
             btnReject.Click += BtnReject_Click;
 
-            var btnBack = UIHelpers.CreateSecondaryButton("Back");
-            btnBack.Location = new Point(500, 320);
+            var btnBack = UIHelpers.CreateSecondaryButton(Messages.Get("gui.btn.back"));
+            btnBack.Location = new Point(750, 450);
             btnBack.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new AdminView());
 
             this.Controls.Add(lblTitle);
@@ -107,7 +107,7 @@ namespace GUI.Views
                 if (text == Messages.Get("admin.no_requests")) return null;
                 return text;
             }
-            MessageBox.Show("Please select a request first.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(Messages.Get("admin.select_user"), "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return null;
         }
     }

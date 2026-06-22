@@ -2,6 +2,7 @@ using System;
 using Lib.core;
 using Lib.services;
 using Lib.models;
+using CLI.Views;
 
 namespace CLI
 {
@@ -10,33 +11,33 @@ namespace CLI
         static void Main()
         {
             StateMachine stateMachine = new StateMachine();
-            Views.PrintHeader();
+            BaseViews.PrintHeader();
 
             while (stateMachine.Current != State.Exit)
             {
                 switch (stateMachine.Current)
                 {
                     case State.Welcome:
-                        Views.PrintWelcomeView();
-                        if (Session.Menu == 1)
+                        AuthViews.PrintWelcomeView();
+                        if (Session.Instance.Menu == 1)
                         {
                             stateMachine.Set(State.Login);
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
                             stateMachine.Set(State.Register);
                         }
-                        else if (Session.Menu == 0)
+                        else if (Session.Instance.Menu == 0)
                         {
                             stateMachine.Set(State.Exit);
                         }
                         break;
 
                     case State.Login:
-                        Views.PrintLoginView();
-                        if (Session.Account != null)
+                        AuthViews.PrintLoginView();
+                        if (Session.Instance.Account != null)
                         {
-                            if (Session.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                            if (Session.Instance.Account.Role.Equals("admin", StringComparison.OrdinalIgnoreCase))
                             {
                                 stateMachine.Set(State.Admin);
                             }
@@ -52,44 +53,44 @@ namespace CLI
                         break;
 
                     case State.Register:
-                        Views.PrintRegisterView();
+                        AuthViews.PrintRegisterView();
                         stateMachine.Set(State.Welcome);
                         break;
 
                     case State.Home:
-                        Views.PrintHomeView();
-                        if (Session.Menu == 1)
+                        ProfileViews.PrintHomeView();
+                        if (Session.Instance.Menu == 1)
                         {
-                            Views.PrintAllResearch();
+                            ResearchViews.PrintAllResearch();
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
-                            Views.PrintProfileView();
+                            ProfileViews.PrintProfileView();
                         }
-                        else if (Session.Menu == 3 && Session.Account != null && Session.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase))
+                        else if (Session.Instance.Menu == 3 && Session.Instance.Account != null && Session.Instance.Account.Role.Equals("researcher", StringComparison.OrdinalIgnoreCase))
                         {
-                            Views.PrintAddResearchView();
+                            ProfileViews.PrintAddResearchView();
                         }
-                        else if (Session.Menu == 9)
+                        else if (Session.Instance.Menu == 9)
                         {
-                            Session.Account = null;
+                            Session.Instance.Logout();
                             stateMachine.Set(State.Welcome);
                         }
                         break;
 
                     case State.Admin:
-                        Views.PrintAdminView();
-                        if (Session.Menu == 1)
+                        AdminViews.PrintAdminView();
+                        if (Session.Instance.Menu == 1)
                         {
-                            Views.PrintAllUsers();
+                            AdminViews.PrintAllUsers();
                         }
-                        else if (Session.Menu == 2)
+                        else if (Session.Instance.Menu == 2)
                         {
-                            Views.PrintRequestView();
+                            AdminViews.PrintRequestView();
                         }
-                        else if (Session.Menu == 9)
+                        else if (Session.Instance.Menu == 9)
                         {
-                            Session.Account = null;
+                            Session.Instance.Logout();
                             stateMachine.Set(State.Welcome);
                         }
                         break;

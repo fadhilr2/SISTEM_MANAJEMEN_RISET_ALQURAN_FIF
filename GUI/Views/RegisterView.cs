@@ -9,6 +9,7 @@ namespace GUI.Views
 {
     public class RegisterView : UserControl
     {
+        private TextBox txtName;
         private TextBox txtEmail;
         private TextBox txtPassword;
         private TextBox txtConfirmPassword;
@@ -21,38 +22,46 @@ namespace GUI.Views
 
         private void InitializeComponent()
         {
-            var lblTitle = UIHelpers.CreateLabel("REGISTER", 20, true);
-            lblTitle.Location = new Point((800 - 140) / 2, 40);
+            var lblTitle = UIHelpers.CreateLabel(Messages.Get("gui.title.register"), 20, true);
+            lblTitle.Location = new Point((1000 - 140) / 2, 60);
 
-            int startX = (800 - 250) / 2;
+            int startX = (1000 - 250) / 2;
 
-            var lblEmail = UIHelpers.CreateLabel("Email:");
-            lblEmail.Location = new Point(startX, 100);
+            var lblName = UIHelpers.CreateLabel(Messages.Get("gui.label.name"));
+            lblName.Location = new Point(startX, 130);
+            
+            txtName = UIHelpers.CreateTextBox();
+            txtName.Location = new Point(startX, 155);
+
+            var lblEmail = UIHelpers.CreateLabel(Messages.Get("gui.label.email"));
+            lblEmail.Location = new Point(startX, 205);
             
             txtEmail = UIHelpers.CreateTextBox();
-            txtEmail.Location = new Point(startX, 125);
+            txtEmail.Location = new Point(startX, 230);
 
-            var lblPassword = UIHelpers.CreateLabel("Password:");
-            lblPassword.Location = new Point(startX, 170);
+            var lblPassword = UIHelpers.CreateLabel(Messages.Get("gui.label.password"));
+            lblPassword.Location = new Point(startX, 280);
             
             txtPassword = UIHelpers.CreateTextBox(isPassword: true);
-            txtPassword.Location = new Point(startX, 195);
+            txtPassword.Location = new Point(startX, 305);
 
-            var lblConfirmPassword = UIHelpers.CreateLabel("Confirm Password:");
-            lblConfirmPassword.Location = new Point(startX, 240);
+            var lblConfirmPassword = UIHelpers.CreateLabel(Messages.Get("gui.label.confirm_password"));
+            lblConfirmPassword.Location = new Point(startX, 355);
             
             txtConfirmPassword = UIHelpers.CreateTextBox(isPassword: true);
-            txtConfirmPassword.Location = new Point(startX, 265);
+            txtConfirmPassword.Location = new Point(startX, 380);
 
-            var btnRegister = UIHelpers.CreateButton("Register");
-            btnRegister.Location = new Point((800 - btnRegister.Width) / 2, 320);
+            var btnRegister = UIHelpers.CreateButton(Messages.Get("gui.btn.register"));
+            btnRegister.Location = new Point((1000 - btnRegister.Width) / 2, 440);
             btnRegister.Click += BtnRegister_Click;
 
-            var btnBack = UIHelpers.CreateSecondaryButton("Back");
-            btnBack.Location = new Point((800 - btnBack.Width) / 2, 370);
+            var btnBack = UIHelpers.CreateSecondaryButton(Messages.Get("gui.btn.back"));
+            btnBack.Location = new Point((1000 - btnBack.Width) / 2, 490);
             btnBack.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new WelcomeView());
 
             this.Controls.Add(lblTitle);
+            this.Controls.Add(lblName);
+            this.Controls.Add(txtName);
             this.Controls.Add(lblEmail);
             this.Controls.Add(txtEmail);
             this.Controls.Add(lblPassword);
@@ -71,7 +80,7 @@ namespace GUI.Views
                 return;
             }
 
-            AuthService.Register(txtEmail.Text, txtPassword.Text);
+            AuthService.Register(txtName.Text, txtEmail.Text, txtPassword.Text);
             MessageBox.Show(Messages.Get("register.success"), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             (this.ParentForm as Form1)?.NavigateTo(new WelcomeView());
         }

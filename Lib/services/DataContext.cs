@@ -94,6 +94,7 @@ namespace Lib.services
         {
             new User
             {
+                Name = "Bacon",
                 Email = "bacon@mail.com",
                 Password = "qwerty",
                 Role = "visitor",

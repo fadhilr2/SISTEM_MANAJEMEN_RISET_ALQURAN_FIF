@@ -18,25 +18,25 @@ namespace GUI.Views
 
         private void InitializeComponent()
         {
-            var lblTitle = UIHelpers.CreateLabel("ADMIN PAGE", 20, true);
-            lblTitle.Location = new Point((800 - 180) / 2, 40);
+            var lblTitle = UIHelpers.CreateLabel(Messages.Get("gui.title.admin"), 20, true);
+            lblTitle.Location = new Point((1000 - 180) / 2, 60);
 
             var lblWelcome = UIHelpers.CreateLabel($"Welcome, Administrator!", 14);
-            lblWelcome.Location = new Point(50, 90);
+            lblWelcome.Location = new Point(50, 110);
 
-            var btnUsers = UIHelpers.CreateButton("View All Users");
-            btnUsers.Location = new Point((800 - btnUsers.Width) / 2, 150);
+            var btnUsers = UIHelpers.CreateButton(Messages.Get("gui.btn.manage_users"));
+            btnUsers.Location = new Point((1000 - btnUsers.Width) / 2, 180);
             btnUsers.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new AdminUsersView());
 
-            var btnRequests = UIHelpers.CreateButton("View Registration Requests");
-            btnRequests.Location = new Point((800 - btnRequests.Width) / 2, 210);
+            var btnRequests = UIHelpers.CreateButton(Messages.Get("gui.btn.manage_requests"));
+            btnRequests.Location = new Point((1000 - btnRequests.Width) / 2, 240);
             btnRequests.Click += (s, e) => (this.ParentForm as Form1)?.NavigateTo(new AdminRequestsView());
 
-            var btnLogout = UIHelpers.CreateSecondaryButton("Logout");
-            btnLogout.Location = new Point((800 - btnLogout.Width) / 2, 290);
+            var btnLogout = UIHelpers.CreateSecondaryButton(Messages.Get("gui.btn.logout"));
+            btnLogout.Location = new Point((1000 - btnLogout.Width) / 2, 320);
             btnLogout.Click += (s, e) => 
             {
-                Session.Account = null;
+                Session.Instance.Logout();
                 (this.ParentForm as Form1)?.NavigateTo(new WelcomeView());
             };
 
